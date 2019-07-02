@@ -9,9 +9,6 @@ function getEntry(subject, callback) {
         var entries = [];
         var body = '';
         var movedto = '';
-        process.on("uncaughtException", function (err) {
-            console.log(err);
-        })
         res.on('data', (d) => {
             body += d;
             var $ = cheerio.load(body);
@@ -53,12 +50,10 @@ function getEntry(subject, callback) {
                                 for(i = 0; i < authors.length; i++){
                                     entries.push(new Entry(texts[i], authors[i]));
                                 }
-                               // console.log(entries[0]);
                                 callback(entries);
                             })
                         })
                     } else {
-                        //console.log(entries);
                         callback(entries);
                     }
                 })
