@@ -1,6 +1,6 @@
 {
   "name": "eksisozlukjs",
-  "version": "1.0.4",
+  "version": "1.0.8",
   "description": "Eksi Sozluk Scraper",
   "main": "index.js",
   "scripts": {
