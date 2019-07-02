@@ -1,10 +1,10 @@
 var https = require('https');
 const cheerio = require('cheerio');
 
-module.exports.getEntry = getEntry();
+module.exports.getEntry = getEntry;
 
 function getEntry(subject, callback) {
-    var subject = subject.toLocaleLowerCase();
+    subject = subject.toLocaleLowerCase();
     https.get('https://eksisozluk.com/' + encodeURI(subject), (res) => {
         var entries = [];
         var body = '';
@@ -26,7 +26,7 @@ function getEntry(subject, callback) {
                         authors[i] = t(this).text();
                     })
                     t(".content").each(function(i, elem){
-                        texts[i] = t(this).text();
+                        texts[i] = t(this).text().replace(/(^[ \t]*\n)/gm, "").trim();
                     })
                     for(i = 0; i < authors.length; i++){
                         entries.push(new Entry(texts[i], authors[i]));
@@ -42,7 +42,7 @@ function getEntry(subject, callback) {
                             res3.on("end", function () {
                                 var f = cheerio.load(body3);
                                 f(".content").each(function(i, elem){
-                                    texts[i] = f(this).text();
+                                    texts[i] = f(this).text().replace(/(^[ \t]*\n)/gm, "").trim();
                                 })
                                 f(".entry-author").each(function(i, elem){
                                     authors[i] = f(this).text();
